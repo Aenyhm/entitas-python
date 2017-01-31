@@ -10,6 +10,7 @@ Overview
 --------
 
 .. code-block:: python
+
   >>> Position = namedtuple('Position', ['x', 'y', 'z'])
   >>> context = entitas.Context()
   >>> entity = context.create_entity()
