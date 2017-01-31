@@ -13,3 +13,7 @@ class AlreadyAddedComponent(Exception):
 
 class MissingComponent(Exception):
     """The entity does not contain this type of component."""
+
+
+class MissingEntity(Exception):
+    """The context does not contain this entity."""
