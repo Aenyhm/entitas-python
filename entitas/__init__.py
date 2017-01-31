@@ -18,6 +18,4 @@ __license__ = 'MIT'
 __copyright__ = 'Copyright 2017 Fabien Nouaillat'
 
 from .entity import Entity
-from .exceptions import (
-    ExistingComponentException,
-    MissingComponentException)
+from .exceptions import AlreadyAddedComponent, MissingComponent

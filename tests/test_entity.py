@@ -1,19 +1,18 @@
 # -*- coding: utf-8 -*-
 
 import pytest
+
 from collections import namedtuple
-from entitas import (
-    Entity,
-    ExistingComponentException,
-    MissingComponentException)
+from entitas import Entity, AlreadyAddedComponent, MissingComponent
+
 
 CompA = namedtuple('CompA', [])
 CompB = namedtuple('CompB', ['x', 'y', 'z'])
 
 
 def test_create_entity():
-    entity = Entity(2)
-    assert entity.creation_index == 2
+    entity = Entity()
+    assert entity.creation_index == 0
     assert entity.count == 0
     assert not entity.has(CompA)
     assert not entity.has(CompB)
@@ -26,14 +25,14 @@ def test_add_comp_a():
     assert entity.has(CompA)
     assert not entity.has(CompB)
     assert type(entity.get(CompA)) == CompA
-    with pytest.raises(MissingComponentException):
+    with pytest.raises(MissingComponent):
         entity.get(CompB)
 
 
 def test_add_two_comp_a():
     entity = Entity()
     entity.add(CompA, [])
-    with pytest.raises(ExistingComponentException):
+    with pytest.raises(AlreadyAddedComponent):
         entity.add(CompA, [])
 
 
@@ -43,7 +42,7 @@ def test_remove_comp_a():
     entity.remove(CompA)
     assert not entity.has(CompA)
     assert entity.count == 0
-    with pytest.raises(MissingComponentException):
+    with pytest.raises(MissingComponent):
         entity.remove(CompA)
 
 
@@ -63,3 +62,11 @@ def test_replace_comp_b():
     assert entity.get(CompB).x == 4
     assert entity.get(CompB).y == 5
     assert entity.get(CompB).z == 6
+
+def test_destroy_entity():
+    entity = Entity()
+    entity.add(CompA, [])
+    entity.add(CompB, [4, 5, 6])
+    assert entity.count == 2
+    entity.destroy()
+    assert entity.count == 0

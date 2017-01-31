@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 
-
-class EntitasException(Exception):
-    pass
-
-
-class ExistingComponentException(EntitasException):
-    pass
+"""
+entitas.exceptions
+~~~~~~~~~~~~~~~~~~~
+This module contains the set of Entitas' exceptions.
+"""
 
 
-class MissingComponentException(EntitasException):
-    pass
+class AlreadyAddedComponent(Exception):
+    """The entity already contains this type of component."""
+
+
+class MissingComponent(Exception):
+    """The entity does not contain this type of component."""

@@ -1,11 +1,14 @@
-# Byte-compiled / optimized / DLL files
+# Python
 __pycache__/
 *.pyc
 
-# Distribution / packaging
-.Python
-env/
+# Py.test
+.cache/
 
-# OS generated
+# Virtual environments
+env/
+venv/
+
+# OS
 Thumbs.db
 .DS_Store
