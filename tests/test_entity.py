@@ -29,9 +29,9 @@ def test_add_comp_a():
 
 def test_add_two_comp_a():
     entity = Entity()
-    entity.add(CompA, [])
+    entity.add(CompA)
     with pytest.raises(AlreadyAddedComponent):
-        entity.add(CompA, [])
+        entity.add(CompA)
 
 def test_remove_comp_a():
     entity = Entity()
@@ -60,7 +60,7 @@ def test_replace_comp_b():
 
 def test_destroy_entity():
     entity = Entity()
-    entity.add(CompA, [])
+    entity.add(CompA)
     entity.add(CompB, [4, 5, 6])
     assert entity.count == 2
     assert entity.has(CompA, CompB)

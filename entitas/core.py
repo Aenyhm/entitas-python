@@ -75,17 +75,20 @@ class Entity(object):
 
         return self._components[comp_type]
 
-    def add(self, comp_type, data):
+    def add(self, comp_type, data=None):
         """Adds a component. If the entity already contains a component
         of its type, a :class:`AlreadyAddedComponent` exception is
         raised.
         :param comp_type: namedtuple type
-        :param data: list of values
+        :param data: (optional) list of values
         """
         if self.has(comp_type):
             raise AlreadyAddedComponent(
                 'Cannot add another component {!r} to {}.'
                 .format(comp_type.__name__, self))
+
+        if data is None:
+            data = []
 
         self._components[comp_type] = comp_type._make(data)
 
@@ -130,7 +133,7 @@ class Context(object):
     def __init__(self):
 
         #: Entities retained by this context.
-        self._entities = []
+        self._entities = set()
 
         #: An object pool to recycle entities.
         self._reusable_entities = deque()
@@ -152,6 +155,25 @@ class Context(object):
         """
         return entity in self._entities
 
+    def get_entities(self, all_of=None, any_of=None, none_of=None):
+        """Retrieves all entities matching the given pattern.
+        :param all_of: list of components
+        :param any_of: list of components
+        :param none_of: list of components
+        :rtype: set(entitas.Entity)
+        """
+        matched_entities = set()
+
+        for entity in self._entities:
+            all_cond = all_of is None or entity.has(*all_of)
+            any_cond = any_of is None or entity.has_any(*any_of)
+            none_cond = none_of is None or not entity.has_any(*none_of)
+
+            if all_cond and any_cond and none_cond:
+                matched_entities.add(entity)
+
+        return matched_entities
+
     def create_entity(self):
         """Creates an entity. Pop one entity from the pool if it is not
         empty, otherwise creates a new one. Increments the entity index.
@@ -165,7 +187,7 @@ class Context(object):
         entity.creation_index = self._entity_index
         self._entity_index += 1
 
-        self._entities.append(entity)
+        self._entities.add(entity)
         return entity
 
     def destroy(self, entity):
