@@ -14,8 +14,8 @@ def test_create_entity():
     entity = Entity()
     assert entity.creation_index == 0
     assert entity.count == 0
-    assert not entity.has(CompA)
-    assert not entity.has(CompB)
+    assert not entity.has_any(CompA, CompB)
+
 
 def test_add_comp_a():
     entity = Entity()
@@ -63,5 +63,6 @@ def test_destroy_entity():
     entity.add(CompA, [])
     entity.add(CompB, [4, 5, 6])
     assert entity.count == 2
+    assert entity.has(CompA, CompB)
     entity.destroy()
     assert entity.count == 0

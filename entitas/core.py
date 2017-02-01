@@ -48,61 +48,68 @@ class Entity(object):
         """
         return len(self._components)
 
-    def has(self, key):
-        """Checks if the entity has a component of this type.
-        :param key: namedtuple type
+    def has(self, *args):
+        """Checks if the entity has all components of the given type(s).
+        :param args: namedtuple types
         :rtype: bool
         """
-        return key in self._components
+        return all([comp_type in self._components for comp_type in args])
 
-    def get(self, key):
+    def has_any(self, *args):
+        """Checks if the entity has any component of the given type(s).
+        :param args: namedtuple types
+        :rtype: bool
+        """
+        return any([comp_type in self._components for comp_type in args])
+
+    def get(self, comp_type):
         """Retrieves a component by its type. If it does not exist,
         a :class:`MissingComponent` exception is raised.
-        :param key: namedtuple type
+        :param comp_type: namedtuple type
         :rtype: namedtuple
         """
-        if not self.has(key):
+        if not self.has(comp_type):
             raise MissingComponent(
                 'Cannot get unexisting component {!r} from {}.'
-                .format(key.__name__, self))
+                .format(comp_type.__name__, self))
 
-        return self._components[key]
+        return self._components[comp_type]
 
-    def add(self, key, data):
+    def add(self, comp_type, data):
         """Adds a component. If the entity already contains a component
         of its type, a :class:`AlreadyAddedComponent` exception is
         raised.
-        :param key: namedtuple type
+        :param comp_type: namedtuple type
         :param data: list of values
         """
-        if self.has(key):
+        if self.has(comp_type):
             raise AlreadyAddedComponent(
                 'Cannot add another component {!r} to {}.'
-                .format(key.__name__, self))
+                .format(comp_type.__name__, self))
 
-        self._components[key] = key._make(data)
+        self._components[comp_type] = comp_type._make(data)
 
-    def replace(self, key, data):
+    def replace(self, comp_type, data):
         """As namedtuples are immutable, simply remove the existing
         component then add a new one with the given values.
-        :param key: namedtuple type
+        :param comp_type: namedtuple type
         :param data: list of values
         """
-        self.remove(key)
-        self.add(key, data)
+        self.remove(comp_type)
+        self.add(comp_type, data)
 
-    def remove(self, key):
+    def remove(self, comp_type):
         """Removes a component. If the entity does not contain a
         component of its type, a :class:`MissingComponent` exception is
         raised.
-        :param key: namedtuple type
+        :param comp_type: namedtuple type
         """
-        if not self.has(key):
+        if not self.has(comp_type):
             raise MissingComponent(
                 'Cannot remove unexisting component {!r} from {}.'
-                .format(key.__name__, self))
+                .format(comp_type.__name__, self))
 
-        del self._components[key]
+        del self._components[comp_type]
 
     def destroy(self):
         """Removes all components."""
