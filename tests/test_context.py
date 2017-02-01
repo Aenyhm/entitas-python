@@ -13,6 +13,8 @@ CompC = namedtuple('CompC', [])
 CompD = namedtuple('CompD', [])
 CompE = namedtuple('CompE', [])
 CompF = namedtuple('CompF', [])
+Movable = namedtuple('Movable', [])
+Position = namedtuple('Position', ['x', 'y'])
 
 def test_create_context():
     context = Context()
@@ -49,3 +51,15 @@ def test_get_entities():
     assert context.get_entities(all_of=[CompA, CompB, CompC],
                                 any_of=[CompD, CompE],
                                 none_of=[CompF]) == {eA}
+
+def test_readme_example():
+    context = Context()
+    entity = context.create_entity()
+    entity.add(Movable)
+    entity.add(Position, 3, 7)
+
+    entities = context.get_entities(all_of=[Movable, Position])
+    assert len(entities) == 1
+
+    for e in entities:
+        assert e.has(Movable, Position)

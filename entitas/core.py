@@ -75,31 +75,28 @@ class Entity(object):
 
         return self._components[comp_type]
 
-    def add(self, comp_type, data=None):
+    def add(self, comp_type, *args):
         """Adds a component. If the entity already contains a component
         of its type, a :class:`AlreadyAddedComponent` exception is
         raised.
         :param comp_type: namedtuple type
-        :param data: (optional) list of values
+        :param *args: (optional) data values
         """
         if self.has(comp_type):
             raise AlreadyAddedComponent(
                 'Cannot add another component {!r} to {}.'
                 .format(comp_type.__name__, self))
 
-        if data is None:
-            data = []
+        self._components[comp_type] = comp_type._make(args)
 
-        self._components[comp_type] = comp_type._make(data)
-
-    def replace(self, comp_type, data):
+    def replace(self, comp_type, *args):
         """As namedtuples are immutable, simply remove the existing
         component then add a new one with the given values.
         :param comp_type: namedtuple type
-        :param data: list of values
+        :param *args: (optional) data values
         """
         self.remove(comp_type)
-        self.add(comp_type, data)
+        self.add(comp_type, *args)
 
     def remove(self, comp_type):
         """Removes a component. If the entity does not contain a
