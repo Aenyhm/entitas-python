@@ -16,10 +16,12 @@ CompF = namedtuple('CompF', [])
 Movable = namedtuple('Movable', [])
 Position = namedtuple('Position', ['x', 'y'])
 
+
 def test_create_context():
     context = Context()
     assert context._entity_index == 0
     assert context.count == 0
+
 
 def test_create_entity():
     context = Context()
@@ -28,6 +30,7 @@ def test_create_entity():
     assert context.has_entity(entity)
     assert isinstance(entity, Entity)
 
+
 def test_destroy_entity():
     context = Context()
     entity = context.create_entity()
@@ -35,6 +38,7 @@ def test_destroy_entity():
     assert not context.has_entity(entity)
     with pytest.raises(MissingEntity):
         context.destroy_entity(entity)
+
 
 def test_get_entities():
     context = Context()
@@ -51,6 +55,7 @@ def test_get_entities():
     assert context.get_entities(Matcher(all_of=[CompA, CompB, CompC],
                                 any_of=[CompD, CompE],
                                 none_of=[CompF])) == {eA}
+
 
 def test_readme_example():
     context = Context()

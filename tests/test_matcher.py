@@ -12,6 +12,7 @@ CompD = namedtuple('CompD', [])
 CompE = namedtuple('CompE', [])
 CompF = namedtuple('CompF', [])
 
+
 def test_matches():
     eA = Entity()
     eB = Entity()

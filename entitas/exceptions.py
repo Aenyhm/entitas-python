@@ -18,5 +18,6 @@ class MissingComponent(Exception):
 class MissingEntity(Exception):
     """The context does not contain this entity."""
 
+
 class GroupSingleEntity(Exception):
     """The group contains more than one entity."""

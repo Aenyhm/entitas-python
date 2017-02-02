@@ -4,10 +4,11 @@ from collections import namedtuple
 
 import pytest
 
-from entitas import Context, Matcher, Group, GroupSingleEntity
+from entitas import Context, Matcher, GroupSingleEntity
 
 
 CompA = namedtuple('CompA', [])
+
 
 def test_single_entity():
     context = Context()
@@ -17,6 +18,7 @@ def test_single_entity():
 
     assert len(group.entities) == 1
     assert group.single_entity.has(CompA)
+
 
 def test_not_single_entity():
     context = Context()
