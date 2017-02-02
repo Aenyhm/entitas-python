@@ -17,6 +17,10 @@ __author__ = 'Fabien Nouaillat'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 2017 Fabien Nouaillat'
 
-from .core import Entity, Context
+from .entity import Entity
+from .context import Context
+from .matcher import Matcher
+from .group import Group
 from .exceptions import (
-    AlreadyAddedComponent, MissingComponent, MissingEntity)
+    AlreadyAddedComponent, MissingComponent,
+    MissingEntity, GroupSingleEntity)

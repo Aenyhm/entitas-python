@@ -4,7 +4,7 @@ entitas-python
 .. image:: https://travis-ci.org/Aenyhm/entitas-python.svg?branch=master
     :target: https://travis-ci.org/Aenyhm/entitas-python
 
-entitas-python is a port of the official `Entitas ECS for C# and Unity`_.
+entitas-python aims to be a port of `Entitas ECS for C# and Unity`_.
 
 Overview
 --------
@@ -20,7 +20,7 @@ Entity
 
   entity.replace(Position, 10, 100)
   entity.replace(Health, entity.get(Health).value - 1)
-  entity.remove(Movable)
+
   entity.remove(Position)
 
   has_pos = entity.has(Position)
@@ -35,7 +35,7 @@ Context
   entity = context.create_entity()
   entity.add(Movable)
 
-  entities = context.get_entities(all_of=[Movable, Position])
+  entities = context.get_entities(Matcher(all_of=[Movable, Position]))
   for e in entities:
       # do something
 
