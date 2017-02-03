@@ -39,5 +39,14 @@ Context
   for e in entities:
       # do something
 
+Group
+~~~~~
+
+.. code-block:: python
+
+  context.get_group(Matcher([Position])).entities
+
+  context.get_group(Matcher([Position])).on_entity_added += lambda e: #do something
+
 
 .. _Entitas ECS for C# and Unity : https://github.com/sschmid/Entitas-CSharp

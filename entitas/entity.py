@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from .utils import Event
 from .exceptions import AlreadyAddedComponent, MissingComponent
 
 
@@ -19,6 +20,10 @@ class Entity(object):
 
         #: Entities unique identifier per context.
         self.creation_index = 0
+
+        self.on_component_added = Event()
+        self.on_component_removed = Event()
+        self.on_component_replaced = Event()
 
     @property
     def count(self):
@@ -55,6 +60,28 @@ class Entity(object):
         return self._components[comp_type]
 
     def add(self, comp_type, *args):
+        self._add_silently(comp_type, *args)
+        self.on_component_added(self)
+
+    def remove(self, comp_type):
+        self._remove_silently(comp_type)
+        self.on_component_removed(self)
+
+    def replace(self, comp_type, *args):
+        """As namedtuples are immutable, simply remove the existing
+        component then add a new one with the given values.
+        :param comp_type: namedtuple type
+        :param *args: (optional) data values
+        """
+        self._remove_silently(comp_type)
+        self._add_silently(comp_type, *args)
+        self.on_component_replaced(self)
+
+    def destroy(self):
+        """Removes all components."""
+        self._components.clear()
+
+    def _add_silently(self, comp_type, *args):
         """Adds a component. If the entity already contains a component
         of its type, a :class:`AlreadyAddedComponent` exception is
         raised.
@@ -68,16 +95,7 @@ class Entity(object):
 
         self._components[comp_type] = comp_type._make(args)
 
-    def replace(self, comp_type, *args):
-        """As namedtuples are immutable, simply remove the existing
-        component then add a new one with the given values.
-        :param comp_type: namedtuple type
-        :param *args: (optional) data values
-        """
-        self.remove(comp_type)
-        self.add(comp_type, *args)
-
-    def remove(self, comp_type):
+    def _remove_silently(self, comp_type):
         """Removes a component. If the entity does not contain a
         component of its type, a :class:`MissingComponent` exception is
         raised.
@@ -89,10 +107,6 @@ class Entity(object):
                 .format(comp_type.__name__, self))
 
         del self._components[comp_type]
-
-    def destroy(self):
-        """Removes all components."""
-        self._components.clear()
 
     def __repr__(self):
         """ <Entity_0 [Position(x=1, y=2, z=3)]> """

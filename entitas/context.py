@@ -59,6 +59,10 @@ class Context(object):
                   else Entity())
 
         entity.creation_index = self._entity_index
+        entity.on_component_added += self._comp_added_or_removed
+        entity.on_component_removed += self._comp_added_or_removed
+        entity.on_component_replaced += self._comp_replaced
+
         self._entity_index += 1
 
         self._entities.add(entity)
@@ -73,6 +77,10 @@ class Context(object):
         if not self.has_entity(entity):
             raise MissingEntity()
 
+        entity.on_component_added -= self._comp_added_or_removed
+        entity.on_component_removed -= self._comp_added_or_removed
+        entity.on_component_replaced -= self._comp_replaced
+
         self._entities.remove(entity)
         self._reusable_entities.append(entity)
 
@@ -86,11 +94,19 @@ class Context(object):
         group = Group(matcher)
 
         for entity in self._entities:
-            group.handle_entity(entity)
+            group.handle_entity(entity, silently=True)
 
         self._groups[matcher] = group
 
         return group
+
+    def _comp_added_or_removed(self, entity):
+        for matcher in self._groups:
+            self._groups[matcher].handle_entity(entity, silently=False)
+
+    def _comp_replaced(self, entity):
+        for matcher in self._groups:
+            self._groups[matcher].update_entity(entity)
 
     def __repr__(self):
         return '<Context ({}/{})>'.format(

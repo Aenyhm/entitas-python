@@ -53,8 +53,8 @@ def test_get_entities():
     assert context.get_entities() == {eA, eB, eC}
     assert context.get_entities(Matcher([CompA])) == {eA, eB}
     assert context.get_entities(Matcher(all_of=[CompA, CompB, CompC],
-                                any_of=[CompD, CompE],
-                                none_of=[CompF])) == {eA}
+                                        any_of=[CompD, CompE],
+                                        none_of=[CompF])) == {eA}
 
 
 def test_readme_example():
