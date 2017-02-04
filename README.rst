@@ -46,7 +46,10 @@ Group
 
   context.get_group(Matcher([Position])).entities
 
-  context.get_group(Matcher([Position])).on_entity_added += lambda e: #do something
+  def move(entity):
+      # do something
+
+  context.get_group(Matcher([Position])).on_entity_added += move
 
 
 .. _Entitas ECS for C# and Unity : https://github.com/sschmid/Entitas-CSharp

@@ -14,6 +14,7 @@ from .entity import Entity
 from .context import Context
 from .matcher import Matcher
 from .group import Group
+from .processors import Processors
 from .utils import Event
 from .exceptions import (
     AlreadyAddedComponent, MissingComponent,

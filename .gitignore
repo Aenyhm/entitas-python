@@ -1,6 +1,9 @@
 # Python
 __pycache__/
+build/
+dist/
 *.pyc
+*.egg-info/
 
 # Py.test
 .cache/

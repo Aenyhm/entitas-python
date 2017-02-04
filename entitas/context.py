@@ -81,6 +81,8 @@ class Context(object):
         entity.on_component_removed -= self._comp_added_or_removed
         entity.on_component_replaced -= self._comp_replaced
 
+        entity.destroy()
+
         self._entities.remove(entity)
         self._reusable_entities.append(entity)
 

@@ -12,7 +12,7 @@ with open('entitas/__init__.py', 'r') as fd:
     version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]',
                         fd.read(), re.MULTILINE).group(1)
 
-with open('README.rst', 'r', 'utf-8') as f:
+with open('README.rst') as f:
     readme = f.read()
 
 setup(
