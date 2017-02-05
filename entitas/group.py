@@ -78,12 +78,6 @@ class Group(object):
             self.on_entity_added(entity)
             self.on_entity_updated(entity)
 
-    def create_collector(self, group_event):
-        collector = Collector()
-        collector.add(self, group_event)
-        collector.activate()
-        return collector
-
     def _add_entity_silently(self, entity):
         if entity not in self.entities:
             self.entities.add(entity)
@@ -108,42 +102,3 @@ class Group(object):
 
     def __repr__(self):
         return '<Group [{}]>'.format(self._matcher)
-
-
-class Collector(object):
-
-    def __init__(self):
-        self.collected_entities = set()
-        self._groups = {}
-
-    def add(self, group, group_event):
-        self._groups[group] = group_event
-
-    def activate(self):
-        for group in self._groups:
-            group_event = self._groups[group]
-
-            added_event = group_event == GroupEvent.added
-            removed_event = group_event == GroupEvent.removed
-            added_or_removed_event = group_event == GroupEvent.added_or_removed
-
-            if added_event or added_or_removed_event:
-                group.on_entity_added -= self._add_entity
-                group.on_entity_added += self._add_entity
-
-            if removed_event or added_or_removed_event:
-                group.on_entity_removed -= self._add_entity
-                group.on_entity_removed += self._add_entity
-
-    def deactivate(self):
-        for group in self._groups:
-            group.on_entity_added -= self._add_entity
-            group.on_entity_removed -= self._add_entity
-
-        self.clear_collected_entities()
-
-    def clear_collected_entities(self):
-        self.collected_entities.clear()
-
-    def _add_entity(self, entity):
-        self.collected_entities.add(entity)

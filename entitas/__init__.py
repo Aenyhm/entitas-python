@@ -13,8 +13,9 @@ entitas-python is a port of Entitas-CSharp, a popular ECS.
 from .entity import Entity
 from .context import Context
 from .matcher import Matcher
-from .group import Group, GroupEvent, Collector
-from .processors import Processors
+from .group import Group, GroupEvent
+from .collector import Collector
+from .processors import Processors, ExecuteProcessor, ReactiveProcessor
 from .utils import Event
 from .exceptions import (
     AlreadyAddedComponent, MissingComponent,
