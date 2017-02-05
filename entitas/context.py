@@ -13,7 +13,7 @@ class Context(object):
     def __init__(self):
 
         #: Entities retained by this context.
-        self._entities = set()
+        self.entities = set()
 
         #: An object pool to recycle entities.
         self._reusable_entities = deque()
@@ -29,24 +29,14 @@ class Context(object):
         """Returns the number of retained entities.
         :rtype: int
         """
-        return len(self._entities)
+        return len(self.entities)
 
     def has_entity(self, entity):
         """Checks if the context contains this entity.
         :param entity: Entity
         :rtype: bool
         """
-        return entity in self._entities
-
-    def get_entities(self, matcher=None):
-        """Retrieves all entities matching the given pattern.
-        :param matcher: (optional) Matcher
-        :rtype: set of Entity
-        """
-        if matcher is None:
-            return self._entities
-
-        return {e for e in self._entities if matcher.matches(e)}
+        return entity in self.entities
 
     def create_entity(self):
         """Creates an entity. Pop one entity from the pool if it is not
@@ -65,7 +55,7 @@ class Context(object):
 
         self._entity_index += 1
 
-        self._entities.add(entity)
+        self.entities.add(entity)
         return entity
 
     def destroy_entity(self, entity):
@@ -83,7 +73,7 @@ class Context(object):
 
         entity.destroy()
 
-        self._entities.remove(entity)
+        self.entities.remove(entity)
         self._reusable_entities.append(entity)
 
     def get_group(self, matcher):
@@ -95,7 +85,7 @@ class Context(object):
 
         group = Group(matcher)
 
-        for entity in self._entities:
+        for entity in self.entities:
             group.handle_entity_silently(entity)
 
         self._groups[matcher] = group

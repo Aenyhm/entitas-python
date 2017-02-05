@@ -42,19 +42,13 @@ def test_destroy_entity():
 
 def test_get_entities():
     context = Context()
-    assert context.get_entities() == set()
-    eA = context.create_entity()
-    eA.add(CompA); eA.add(CompB); eA.add(CompC); eA.add(CompE)
-    eB = context.create_entity()
-    eB.add(CompA); eB.add(CompB); eB.add(CompC); eB.add(CompE); eB.add(CompF)
-    eC = context.create_entity()
-    eC.add(CompB); eC.add(CompC); eC.add(CompD)
+    assert context.entities == set()
 
-    assert context.get_entities() == {eA, eB, eC}
-    assert context.get_entities(Matcher([CompA])) == {eA, eB}
-    assert context.get_entities(Matcher(all_of=[CompA, CompB, CompC],
-                                        any_of=[CompD, CompE],
-                                        none_of=[CompF])) == {eA}
+    entity_a = context.create_entity()
+    entity_b = context.create_entity()
+    entity_c = context.create_entity()
+
+    assert context.entities == {entity_a, entity_b, entity_c}
 
 
 def test_readme_example():
@@ -63,7 +57,7 @@ def test_readme_example():
     entity.add(Movable)
     entity.add(Position, 3, 7)
 
-    entities = context.get_entities(Matcher(all_of=[Movable, Position]))
+    entities = context.entities
     assert len(entities) == 1
 
     for e in entities:

@@ -35,7 +35,7 @@ Context
   entity = context.create_entity()
   entity.add(Movable)
 
-  entities = context.get_entities(Matcher(all_of=[Movable, Position]))
+  entities = context.entities
   for e in entities:
       # do something
 
@@ -57,7 +57,7 @@ Entity Collector
 .. code-block:: python
 
   group = context.get_group(Matcher([Position]))
-  collector = group.create_collector(GroupEvent.added);
+  collector = group.create_collector(GroupEvent.added)
 
   # later
 
