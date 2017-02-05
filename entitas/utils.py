@@ -7,19 +7,21 @@ def has_method(obj, method_name):
 
 
 class Event(object):
-    """ C# events in Python. """
+    """C# events in Python."""
 
     def __init__(self):
-        self.listeners = []
+        self._listeners = []
 
     def __call__(self, *args, **kwargs):
-        for listener in self.listeners:
+        for listener in self._listeners:
             listener(*args, **kwargs)
 
     def __add__(self, listener):
-        self.listeners.append(listener)
+        if listener not in self._listeners:
+            self._listeners.append(listener)
         return self
 
     def __sub__(self, listener):
-        self.listeners.remove(listener)
+        if listener in self._listeners:
+            self._listeners.remove(listener)
         return self

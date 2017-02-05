@@ -51,5 +51,24 @@ Group
 
   context.get_group(Matcher([Position])).on_entity_added += move
 
+Entity Collector
+~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+  group = context.get_group(Matcher([Position]))
+  collector = group.create_collector(GroupEvent.added);
+
+  # later
+
+  for e in collector.collected_entities:
+     # do something with all the entities
+     # that have been collected to this point of time
+
+  collector.clear_collected_entities()
+
+  # stop observing
+  collector.deactivate()
+
 
 .. _Entitas ECS for C# and Unity : https://github.com/sschmid/Entitas-CSharp

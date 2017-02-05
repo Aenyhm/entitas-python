@@ -96,7 +96,7 @@ class Context(object):
         group = Group(matcher)
 
         for entity in self._entities:
-            group.handle_entity(entity, silently=True)
+            group.handle_entity_silently(entity)
 
         self._groups[matcher] = group
 
@@ -104,7 +104,7 @@ class Context(object):
 
     def _comp_added_or_removed(self, entity):
         for matcher in self._groups:
-            self._groups[matcher].handle_entity(entity, silently=False)
+            self._groups[matcher].handle_entity(entity)
 
     def _comp_replaced(self, entity):
         for matcher in self._groups:

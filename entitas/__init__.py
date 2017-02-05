@@ -13,7 +13,7 @@ entitas-python is a port of Entitas-CSharp, a popular ECS.
 from .entity import Entity
 from .context import Context
 from .matcher import Matcher
-from .group import Group
+from .group import Group, GroupEvent, Collector
 from .processors import Processors
 from .utils import Event
 from .exceptions import (
