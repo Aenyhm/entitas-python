@@ -14,15 +14,13 @@ Position = namedtuple('Position', ['x', 'y'])
 
 def test_create_entity():
     entity = Entity()
-    assert entity.creation_index == 0
-    assert entity.count == 0
     assert not entity.has_any(Movable, Position)
 
 
 def test_add_comp_a():
     entity = Entity()
+    entity.activate(0)
     entity.add(Movable)
-    assert entity.count == 1
     assert entity.has(Movable)
     assert not entity.has(Position)
     assert isinstance(entity.get(Movable), Movable)
@@ -32,6 +30,7 @@ def test_add_comp_a():
 
 def test_add_two_comp_a():
     entity = Entity()
+    entity.activate(0)
     entity.add(Movable)
     with pytest.raises(AlreadyAddedComponent):
         entity.add(Movable)
@@ -39,16 +38,17 @@ def test_add_two_comp_a():
 
 def test_remove_comp_a():
     entity = Entity()
+    entity.activate(0)
     entity.add(Movable)
     entity.remove(Movable)
     assert not entity.has(Movable)
-    assert entity.count == 0
     with pytest.raises(MissingComponent):
         entity.remove(Movable)
 
 
 def test_add_comp_b():
     entity = Entity()
+    entity.activate(0)
     entity.add(Position, 1, 2)
     assert entity.get(Position).x == 1
     assert entity.get(Position).y == 2
@@ -56,25 +56,26 @@ def test_add_comp_b():
 
 def test_replace_comp_b():
     entity = Entity()
+    entity.activate(0)
     entity.add(Position, 1, 2)
     entity.replace(Position, 3, 4)
-    assert entity.count == 1
     assert entity.get(Position).x == 3
     assert entity.get(Position).y == 4
 
 
 def test_destroy_entity():
     entity = Entity()
+    entity.activate(0)
     entity.add(Movable)
     entity.add(Position, 1, 2)
-    assert entity.count == 2
     assert entity.has(Movable, Position)
-    entity.destroy()
-    assert entity.count == 0
+    entity.remove_all()
+    assert not entity.has(Movable, Position)
 
 
 def test_readme_example():
     entity = Entity()
+    entity.activate(0)
     entity.add(Position, 3, 7)
     entity.add(Health, 100)
     entity.add(Movable)

@@ -23,7 +23,7 @@ class ReactiveProcessor(ExecuteProcessor):
         pass
 
     @abstractmethod
-    def filter(self):
+    def filter(self, entity):
         pass
 
     @abstractmethod

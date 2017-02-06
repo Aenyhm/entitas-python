@@ -7,6 +7,10 @@ This module contains the set of Entitas' exceptions.
 """
 
 
+class EntityNotEnabled(Exception):
+    """The entity is not enabled."""
+
+
 class AlreadyAddedComponent(Exception):
     """The entity already contains this type of component."""
 

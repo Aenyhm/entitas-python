@@ -48,14 +48,15 @@ class Context(object):
                   if len(self._reusable_entities) > 0
                   else Entity())
 
-        entity.creation_index = self._entity_index
+        entity.activate(self._entity_index)
+        self._entity_index += 1
+
+        self.entities.add(entity)
+
         entity.on_component_added += self._comp_added_or_removed
         entity.on_component_removed += self._comp_added_or_removed
         entity.on_component_replaced += self._comp_replaced
 
-        self._entity_index += 1
-
-        self.entities.add(entity)
         return entity
 
     def destroy_entity(self, entity):

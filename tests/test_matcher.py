@@ -18,6 +18,9 @@ def test_matches():
     eB = Entity()
     eC = Entity()
 
+    eA.activate(0)
+    eB.activate(1)
+    eC.activate(2)
     eA.add(CompA); eA.add(CompB); eA.add(CompC); eA.add(CompE)
     eB.add(CompA); eB.add(CompB); eB.add(CompC); eB.add(CompE); eB.add(CompF)
     eC.add(CompB); eC.add(CompC); eC.add(CompD)
