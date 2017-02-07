@@ -68,10 +68,6 @@ class Context(object):
         if not self.has_entity(entity):
             raise MissingEntity()
 
-        entity.on_component_added -= self._comp_added_or_removed
-        entity.on_component_removed -= self._comp_added_or_removed
-        entity.on_component_replaced -= self._comp_replaced
-
         entity.destroy()
 
         self.entities.remove(entity)

@@ -60,8 +60,6 @@ class ReactiveProcessor(ExecuteProcessor):
             group = context.get_group(matcher)
             collector.add(group, group_event)
 
-        print(collector)
-
         return collector
 
 
@@ -81,7 +79,6 @@ class Processors():
     def activate_reactive_processors(self):
         for processor in self._execute_processors:
             if isinstance(processor, ReactiveProcessor):
-                print('ReactiveProcessor', processor)
                 processor.activate()
 
     def deactivate_reactive_processors(self):
