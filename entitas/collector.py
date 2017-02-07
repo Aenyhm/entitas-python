@@ -6,8 +6,12 @@ from .group import GroupEvent
 class Collector(object):
 
     def __init__(self):
-        self.collected_entities = set()
+        self._collected_entities = set()
         self._groups = {}
+
+    @property
+    def collected_entities(self):
+        return list(self._collected_entities)
 
     def add(self, group, group_event):
         self._groups[group] = group_event
@@ -36,10 +40,10 @@ class Collector(object):
         self.clear_collected_entities()
 
     def clear_collected_entities(self):
-        self.collected_entities.clear()
+        self._collected_entities.clear()
 
     def _add_entity(self, entity):
-        self.collected_entities.add(entity)
+        self._collected_entities.add(entity)
 
     def __repr__(self):
         return '<Collector [{}]'.format(

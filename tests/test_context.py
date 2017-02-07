@@ -40,17 +40,6 @@ def test_destroy_entity():
         context.destroy_entity(entity)
 
 
-def test_get_entities():
-    context = Context()
-    assert context.entities == set()
-
-    entity_a = context.create_entity()
-    entity_b = context.create_entity()
-    entity_c = context.create_entity()
-
-    assert context.entities == {entity_a, entity_b, entity_c}
-
-
 def test_readme_example():
     context = Context()
     entity = context.create_entity()

@@ -31,7 +31,11 @@ class Group(object):
         self.on_entity_updated = Event()
 
         self._matcher = matcher
-        self.entities = set()
+        self._entities = set()
+
+    @property
+    def entities(self):
+        return list(self._entities)
 
     @property
     def single_entity(self):
@@ -40,16 +44,16 @@ class Group(object):
         It will throw a :class:`MissingComponent` if the group has more
         than one entity.
         """
-        count = len(self.entities)
+        count = len(self._entities)
 
         if count == 1:
-            return min(self.entities)
+            return min(self._entities)
         if count == 0:
             return None
 
         raise GroupSingleEntity(
             'Cannot get a single entity from a group containing {} entities.',
-            len(self.entities))
+            len(self._entities))
 
     def handle_entity_silently(self, entity):
         """This is used by the context to manage the group.
@@ -73,14 +77,14 @@ class Group(object):
         """This is used by the context to manage the group.
         :param matcher: Entity
         """
-        if entity in self.entities:
+        if entity in self._entities:
             self.on_entity_removed(entity)
             self.on_entity_added(entity)
             self.on_entity_updated(entity)
 
     def _add_entity_silently(self, entity):
-        if entity not in self.entities:
-            self.entities.add(entity)
+        if entity not in self._entities:
+            self._entities.add(entity)
             return True
         return False
 
@@ -90,8 +94,8 @@ class Group(object):
             self.on_entity_added(entity)
 
     def _remove_entity_silently(self, entity):
-        if entity in self.entities:
-            self.entities.remove(entity)
+        if entity in self._entities:
+            self._entities.remove(entity)
             return True
         return False
 
