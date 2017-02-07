@@ -26,13 +26,6 @@ class Context(object):
         self._groups = {}
 
     @property
-    def count(self):
-        """Returns the number of retained entities.
-        :rtype: int
-        """
-        return len(self._entities)
-
-    @property
     def entities(self):
         return list(self._entities)
 
@@ -96,8 +89,7 @@ class Context(object):
         return group
 
     def create_unique_component(self, comp_type, *args):
-        entity = self.create_entity()
-        entity.add(comp_type, *args)
+        self.create_entity().add(comp_type, *args)
 
     def get_unique_component(self, comp_type):
         group = self.get_group(Matcher([comp_type]))
@@ -113,4 +105,4 @@ class Context(object):
 
     def __repr__(self):
         return '<Context ({}/{})>'.format(
-            self.count, len(self._reusable_entities))
+            len(self._entities), len(self._reusable_entities))
