@@ -66,7 +66,7 @@ Entity Collector
 
 .. code-block:: python
 
-  group = context.get_group(Matcher(Position)
+  group = context.get_group(Matcher(Position))
   collector = Collector()
   collector.add(group, GroupEvent.added)
 
@@ -127,7 +127,7 @@ Setup example
   processors.initialize()
   processors.activate_reactive_processors()
 
-  # Main loop
+  # main loop
   running = True
   while running:
       processors.execute()
