@@ -4,7 +4,7 @@
 Entitas for Python
 ~~~~~~~~~~~~~~~~~~
 
-entitas-python is a port of Entitas-CSharp, a popular ECS.
+entitas-python is a port of Entitas ECS for C# and Unity.
 
 :copyright: (c) 2017 by Fabien Nouaillat.
 :license: MIT, see LICENSE for more details.
