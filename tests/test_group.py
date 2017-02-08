@@ -7,14 +7,14 @@ import pytest
 from entitas import Context, Matcher, GroupSingleEntity
 
 
-CompA = namedtuple('CompA', [])
+CompA = namedtuple('CompA', '')
 
 
 def test_single_entity():
     context = Context()
     entity = context.create_entity()
     entity.add(CompA)
-    group = context.get_group(Matcher([CompA]))
+    group = context.get_group(Matcher(CompA))
 
     assert len(group.entities) == 1
     assert group.single_entity.has(CompA)
@@ -29,7 +29,7 @@ def test_not_single_entity():
     entityB = context.create_entity()
     entityB.add(CompA)
 
-    group = context.get_group(Matcher([CompA]))
+    group = context.get_group(Matcher(CompA))
 
     assert len(group.entities) == 2
     with pytest.raises(GroupSingleEntity):
@@ -38,7 +38,7 @@ def test_not_single_entity():
 
 def test_events():
     context = Context()
-    group = context.get_group(Matcher([CompA]))
+    group = context.get_group(Matcher(CompA))
     entity = context.create_entity()
     entity.add(CompA)
     assert group.single_entity == entity
@@ -50,7 +50,7 @@ def test_events():
 
 def test_readme_example():
     context = Context()
-    assert context.get_group(Matcher([CompA])).entities == []
-    context.get_group(Matcher([CompA])).on_entity_added += lambda e: print(e)
+    assert context.get_group(Matcher(CompA)).entities == []
+    context.get_group(Matcher(CompA)).on_entity_added += lambda e: print(e)
     entity = context.create_entity()
     entity.add(CompA)

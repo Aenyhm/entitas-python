@@ -144,7 +144,7 @@ class Entity(object):
 
     def remove_all(self):
         """Removes all components."""
-        for comp_type in list(self._components.keys()):
+        for comp_type in list(self._components):
             self._replace(comp_type, None)
 
     def destroy(self):

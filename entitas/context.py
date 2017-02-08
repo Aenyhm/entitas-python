@@ -92,7 +92,7 @@ class Context(object):
         self.create_entity().add(comp_type, *args)
 
     def get_unique_component(self, comp_type):
-        group = self.get_group(Matcher([comp_type]))
+        group = self.get_group(Matcher(comp_type))
         return group.single_entity.get(comp_type)
 
     def _comp_added_or_removed(self, entity):

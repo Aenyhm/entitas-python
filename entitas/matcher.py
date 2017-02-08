@@ -7,10 +7,10 @@ def get_expr_repr(expr):
 
 class Matcher(object):
 
-    def __init__(self, all_of=None, any_of=None, none_of=None):
-        self._all = all_of
-        self._any = any_of
-        self._none = none_of
+    def __init__(self, *args, **kwargs):
+        self._all = args if len(args) > 0 else kwargs.get('all_of', None)
+        self._any = kwargs.get('any_of', None)
+        self._none = kwargs.get('none_of', None)
 
     def matches(self, entity):
         all_cond = self._all is None or entity.has(*self._all)

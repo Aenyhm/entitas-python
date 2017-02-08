@@ -5,12 +5,12 @@ from collections import namedtuple
 from entitas import Entity, Matcher
 
 
-CompA = namedtuple('CompA', [])
-CompB = namedtuple('CompB', [])
-CompC = namedtuple('CompC', [])
-CompD = namedtuple('CompD', [])
-CompE = namedtuple('CompE', [])
-CompF = namedtuple('CompF', [])
+CompA = namedtuple('CompA', '')
+CompB = namedtuple('CompB', '')
+CompC = namedtuple('CompC', '')
+CompD = namedtuple('CompD', '')
+CompE = namedtuple('CompE', '')
+CompF = namedtuple('CompF', '')
 
 
 def test_matches():

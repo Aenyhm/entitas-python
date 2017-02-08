@@ -7,9 +7,9 @@ import pytest
 from entitas import Entity, AlreadyAddedComponent, MissingComponent
 
 
-Movable = namedtuple('Movable', [])
-Health = namedtuple('Health', ['value'])
-Position = namedtuple('Position', ['x', 'y'])
+Movable = namedtuple('Movable', '')
+Health = namedtuple('Health', 'value')
+Position = namedtuple('Position', 'x y')
 
 
 def test_create_entity():

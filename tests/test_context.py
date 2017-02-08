@@ -7,8 +7,8 @@ import pytest
 from entitas import Context, Entity, MissingEntity
 
 
-Movable = namedtuple('Movable', [])
-Position = namedtuple('Position', ['x', 'y'])
+Movable = namedtuple('Movable', '')
+Position = namedtuple('Position', 'x y')
 
 
 def test_create_context():
