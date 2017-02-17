@@ -95,13 +95,14 @@ class Context(object):
         group = self.get_group(Matcher(comp_type))
         return group.single_entity.get(comp_type)
 
-    def _comp_added_or_removed(self, entity):
+    def _comp_added_or_removed(self, entity, comp):
         for matcher in self._groups:
-            self._groups[matcher].handle_entity(entity)
+            self._groups[matcher].handle_entity(entity, comp)
 
-    def _comp_replaced(self, entity):
+    def _comp_replaced(self, entity, previous_comp, new_comp):
         for matcher in self._groups:
-            self._groups[matcher].update_entity(entity)
+            group = self._groups[matcher]
+            group.update_entity(entity, previous_comp, new_comp)
 
     def __repr__(self):
         return '<Context ({}/{})>'.format(

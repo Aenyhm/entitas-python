@@ -51,6 +51,6 @@ def test_events():
 def test_readme_example():
     context = Context()
     assert context.get_group(Matcher(CompA)).entities == []
-    context.get_group(Matcher(CompA)).on_entity_added += lambda e: print(e)
+    context.get_group(Matcher(CompA)).on_entity_added += lambda e, c: print(e)
     entity = context.create_entity()
     entity.add(CompA)

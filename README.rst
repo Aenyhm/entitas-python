@@ -56,7 +56,7 @@ Group
 
   context.get_group(Matcher(Position)).entities
 
-  def move(entity):
+  def move(entity, new_comp):
       # do something
 
   context.get_group(Matcher(Position)).on_entity_added += move

@@ -64,23 +64,23 @@ class Group(object):
         else:
             self._remove_entity_silently(entity)
 
-    def handle_entity(self, entity):
+    def handle_entity(self, entity, component):
         """This is used by the context to manage the group.
         :param matcher: Entity
         """
         if self._matcher.matches(entity):
-            self._add_entity(entity)
+            self._add_entity(entity, component)
         else:
-            self._remove_entity(entity)
+            self._remove_entity(entity, component)
 
-    def update_entity(self, entity):
+    def update_entity(self, entity, previous_comp, new_comp):
         """This is used by the context to manage the group.
         :param matcher: Entity
         """
         if entity in self._entities:
-            self.on_entity_removed(entity)
-            self.on_entity_added(entity)
-            self.on_entity_updated(entity)
+            self.on_entity_removed(entity, previous_comp)
+            self.on_entity_added(entity, new_comp)
+            self.on_entity_updated(entity, previous_comp, new_comp)
 
     def _add_entity_silently(self, entity):
         if entity not in self._entities:
@@ -88,10 +88,10 @@ class Group(object):
             return True
         return False
 
-    def _add_entity(self, entity):
+    def _add_entity(self, entity, component):
         entity_added = self._add_entity_silently(entity)
         if entity_added:
-            self.on_entity_added(entity)
+            self.on_entity_added(entity, component)
 
     def _remove_entity_silently(self, entity):
         if entity in self._entities:
@@ -99,10 +99,10 @@ class Group(object):
             return True
         return False
 
-    def _remove_entity(self, entity):
+    def _remove_entity(self, entity, component):
         entity_removed = self._remove_entity_silently(entity)
         if entity_removed:
-            self.on_entity_removed(entity)
+            self.on_entity_removed(entity, component)
 
     def __repr__(self):
         return '<Group [{}]>'.format(self._matcher)

@@ -70,8 +70,9 @@ class Entity(object):
                 'Cannot add another component {!r} to {}.'
                 .format(comp_type.__name__, self))
 
-        self._components[comp_type] = make_component(comp_type, args)
-        self.on_component_added(self)
+        new_comp = make_component(comp_type, args)
+        self._components[comp_type] = new_comp
+        self.on_component_added(self, new_comp)
 
     def remove(self, comp_type):
         """Removes a component.
@@ -106,12 +107,14 @@ class Entity(object):
             self.add(comp_type, *args)
 
     def _replace(self, comp_type, args):
+        previous_comp = self._components[comp_type]
         if args is None:
             del self._components[comp_type]
-            self.on_component_removed(self)
+            self.on_component_removed(self, previous_comp)
         else:
-            self._components[comp_type] = make_component(comp_type, args)
-            self.on_component_replaced(self)
+            new_comp = make_component(comp_type, args)
+            self._components[comp_type] = new_comp
+            self.on_component_replaced(self, previous_comp, new_comp)
 
     def get(self, comp_type):
         """Retrieves a component by its type.

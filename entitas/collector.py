@@ -42,7 +42,7 @@ class Collector(object):
     def clear_collected_entities(self):
         self._collected_entities.clear()
 
-    def _add_entity(self, entity):
+    def _add_entity(self, entity, component):
         self._collected_entities.add(entity)
 
     def __repr__(self):
