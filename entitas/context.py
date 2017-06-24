@@ -88,7 +88,7 @@ class Context(object):
 
         return group
 
-    def create_unique_component(self, comp_type, *args):
+    def set_unique_component(self, comp_type, *args):
         self.create_entity().add(comp_type, *args)
 
     def get_unique_component(self, comp_type):

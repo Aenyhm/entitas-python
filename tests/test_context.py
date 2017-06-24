@@ -1,45 +1,37 @@
 # -*- coding: utf-8 -*-
 
-from collections import namedtuple
-
 import pytest
 
 from entitas import Context, Entity, MissingEntity
 
 
-Movable = namedtuple('Movable', '')
-Position = namedtuple('Position', 'x y')
+_context = Context()
+_entity = _context.create_entity()
 
 
-def test_create_context():
-    context = Context()
-    assert context._entity_index == 0
+class TestContext(object):
 
+    def test_entry_points(self):
+        Context.create_entity
+        Context.has_entity
+        Context.destroy_entity
+        Context.entities
 
-def test_create_entity():
-    context = Context()
-    entity = context.create_entity()
-    assert context.has_entity(entity)
-    assert isinstance(entity, Entity)
+        Context.get_group
 
+        Context.set_unique_component
+        Context.get_unique_component
 
-def test_destroy_entity():
-    context = Context()
-    entity = context.create_entity()
-    context.destroy_entity(entity)
-    assert not context.has_entity(entity)
-    with pytest.raises(MissingEntity):
-        context.destroy_entity(entity)
+    def test_has_entity(self):
+        assert _context.has_entity(_entity)
+        assert isinstance(_entity, Entity)
 
+    def test_entities(self):
+        assert len(_context.entities) == 1
 
-def test_readme_example():
-    context = Context()
-    entity = context.create_entity()
-    entity.add(Movable)
-    entity.add(Position, 3, 7)
+    def test_destroy_entity(self):
+        _context.destroy_entity(_entity)
+        assert not _context.has_entity(_entity)
 
-    entities = context.entities
-    assert len(entities) == 1
-
-    for e in entities:
-        assert e.has(Movable, Position)
+        with pytest.raises(MissingEntity):
+            _context.destroy_entity(_entity)

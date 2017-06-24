@@ -16,15 +16,6 @@ from .exceptions import (
     EntityNotEnabled, AlreadyAddedComponent, MissingComponent)
 
 
-def make_component(comp_type, args):
-    """Creates a component.
-    :param comp_type: namedtuple type
-    :param args: list of data values
-    :rtype: namedtuple
-    """
-    return comp_type._make(args)
-
-
 class Entity(object):
     """ Use context.create_entity() to create a new entity and
     context.destroy_entity() to destroy it.
@@ -70,7 +61,7 @@ class Entity(object):
                 'Cannot add another component {!r} to {}.'
                 .format(comp_type.__name__, self))
 
-        new_comp = make_component(comp_type, args)
+        new_comp = comp_type._make(args)
         self._components[comp_type] = new_comp
         self.on_component_added(self, new_comp)
 
@@ -112,7 +103,7 @@ class Entity(object):
             del self._components[comp_type]
             self.on_component_removed(self, previous_comp)
         else:
-            new_comp = make_component(comp_type, args)
+            new_comp = comp_type._make(args)
             self._components[comp_type] = new_comp
             self.on_component_replaced(self, previous_comp, new_comp)
 

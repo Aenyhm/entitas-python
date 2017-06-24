@@ -1,30 +1,35 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-import re
+import os
+import sys
+import codecs
 
 from setuptools import setup
 
 
+here = os.path.abspath(os.path.dirname(__file__))
+
+with codecs.open(os.path.join(here, 'README.rst'), encoding='utf-8') as f:
+    long_description = '\n' + f.read()
+
+required = []
 packages = ['entitas']
-requires = ['pytest']
 
-with open('entitas/__init__.py', 'r') as fd:
-    version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]',
-                        fd.read(), re.MULTILINE).group(1)
-
-with open('README.rst') as f:
-    readme = f.read()
+# About dict to store version and package info
+about = dict()
+with open(os.path.join(here, 'entitas', '__version__.py'), 'r', encoding='utf-8') as f:
+    exec(f.read(), about)
 
 setup(
     name='Entitas',
-    version=version,
-    description='Entitas ECS implementation in Python',
-    long_description=readme,
+    version=about['__version__'],
+    description='Entitas ECS implementation in Python.',
+    long_description=long_description,
     author='Fabien Nouaillat',
     author_email='aenyhm@gmail.com',
     url='https://github.com/aenyhm/entitas-python',
     packages=packages,
-    include_package_data=True,
-    install_requires=requires,
-    license='MIT'
+    install_requires=required,
+    license='MIT',
 )

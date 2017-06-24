@@ -1,0 +1,26 @@
+{
+    "_meta": {
+        "hash": {
+            "sha256": "1bc40fd5609e2ed3825882ce7e072240ef9f0fb086718c6a09e8bb5d551c08a3"
+        },
+        "requires": {},
+        "sources": [
+            {
+                "url": "https://pypi.python.org/simple",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {},
+    "develop": {
+        "py": {
+            "version": "==1.4.34"
+        },
+        "pytest": {
+            "version": "==3.1.2"
+        },
+        "setuptools": {
+            "version": "==36.0.1"
+        }
+    }
+}
