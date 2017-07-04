@@ -46,5 +46,4 @@ class Collector(object):
         self._collected_entities.add(entity)
 
     def __repr__(self):
-        return '<Collector [{}]'.format(
-            ', '.join([str(group) for group in self._groups]))
+        return '<Collector [{}]'.format(', '.join(map(str, self._groups)))

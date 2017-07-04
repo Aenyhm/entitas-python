@@ -17,21 +17,12 @@ from .exceptions import (
 
 
 class Entity(object):
-    """ Use context.create_entity() to create a new entity and
+    """Use context.create_entity() to create a new entity and
     context.destroy_entity() to destroy it.
     You can add, replace and remove components to an entity.
     """
 
     def __init__(self):
-
-        #: Dictionary mapping component type and component instance.
-        self._components = {}
-
-        #: Each entity has its own unique creationIndex which will be
-        #: set by the context when you create the entity.
-        self._creation_index = 0
-
-        self._is_enabled = False
 
         #: Occurs when a component gets added.
         self.on_component_added = Event()
@@ -41,6 +32,17 @@ class Entity(object):
 
         #: Occurs when a component gets replaced.
         self.on_component_replaced = Event()
+
+        #: Dictionary mapping component type and component instance.
+        self._components = {}
+
+        #: Each entity has its own unique creationIndex which will be
+        #: set by the context when you create the entity.
+        self._creation_index = 0
+
+        #: The context manages the state of an entity.
+        #: Active entities are enabled, destroyed entities are not.
+        self._is_enabled = False
 
     def activate(self, creation_index):
         self._creation_index = creation_index

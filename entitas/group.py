@@ -4,7 +4,7 @@ from .utils import Event
 from .exceptions import GroupSingleEntity
 
 
-class GroupEvent:
+class GroupEvent(object):
     added, removed, added_or_removed = range(3)
 
 

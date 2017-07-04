@@ -42,8 +42,7 @@ class Context(object):
         Then adds the entity to the list.
         :rtype: Entity
         """
-        entity = (self._reusable_entities.pop()
-                  if len(self._reusable_entities) > 0
+        entity = (self._reusable_entities.pop() if self._reusable_entities
                   else Entity())
 
         entity.activate(self._entity_index)
