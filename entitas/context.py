@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from collections import deque
 
 from .entity import Entity
@@ -25,9 +23,11 @@ class Context(object):
         #: Dictionary of matchers mapping groups.
         self._groups = {}
 
+        self._entity_indices = {}
+
     @property
     def entities(self):
-        return list(self._entities)
+        return self._entities
 
     def has_entity(self, entity):
         """Checks if the context contains this entity.
@@ -93,6 +93,12 @@ class Context(object):
     def get_unique_component(self, comp_type):
         group = self.get_group(Matcher(comp_type))
         return group.single_entity.get(comp_type)
+
+    def add_entity_index(self, entity_index):
+        self._entity_indices[entity_index.type] = entity_index
+
+    def get_entity_index(self, comp_type):
+        return self._entity_indices[comp_type]
 
     def _comp_added_or_removed(self, entity, comp):
         for matcher in self._groups:

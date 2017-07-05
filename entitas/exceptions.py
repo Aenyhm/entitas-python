@@ -1,12 +1,3 @@
-# -*- coding: utf-8 -*-
-
-"""
-entitas.exceptions
-~~~~~~~~~~~~~~~~~~~
-This module contains the set of Entitas' exceptions.
-"""
-
-
 class EntityNotEnabled(Exception):
     """The entity is not enabled."""
 
@@ -25,3 +16,8 @@ class MissingEntity(Exception):
 
 class GroupSingleEntity(Exception):
     """The group contains more than one entity."""
+
+
+class EntitasException(Exception):
+    def __init__(self, message, hint):
+        super().__init__(message + '\n' + hint if hint else message)

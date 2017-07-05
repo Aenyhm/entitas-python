@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-
-
 def get_expr_repr(expr):
     return '' if expr is None else ','.join([x.__name__ for x in expr])
 
@@ -8,7 +5,7 @@ def get_expr_repr(expr):
 class Matcher(object):
 
     def __init__(self, *args, **kwargs):
-        self._all = args if len(args) > 0 else kwargs.get('all_of', None)
+        self._all = args if args else kwargs.get('all_of', None)
         self._any = kwargs.get('any_of', None)
         self._none = kwargs.get('none_of', None)
 

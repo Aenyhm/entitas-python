@@ -1,9 +1,5 @@
-# -*- coding: utf-8 -*-
-
 import pytest
-
 from entitas import Context, Entity, MissingEntity
-
 
 _context = Context()
 _entity = _context.create_entity()
@@ -16,9 +12,7 @@ class TestContext(object):
         Context.has_entity
         Context.destroy_entity
         Context.entities
-
         Context.get_group
-
         Context.set_unique_component
         Context.get_unique_component
 

@@ -1,16 +1,13 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 import os
-import sys
-import codecs
 
 from setuptools import setup
 
 
 here = os.path.abspath(os.path.dirname(__file__))
 
-with codecs.open(os.path.join(here, 'README.rst'), encoding='utf-8') as f:
+with open(os.path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = '\n' + f.read()
 
 required = []
@@ -18,7 +15,8 @@ packages = ['entitas']
 
 # About dict to store version and package info
 about = dict()
-with open(os.path.join(here, 'entitas', '__version__.py'), 'r', encoding='utf-8') as f:
+version_path = os.path.join(here, 'entitas', '__version__.py')
+with open(version_path, 'r', encoding='utf-8') as f:
     exec(f.read(), about)
 
 setup(

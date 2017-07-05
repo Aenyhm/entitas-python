@@ -1,8 +1,5 @@
-# -*- coding: utf-8 -*-
-
 from entitas import Context, Matcher
 from .test_components import Movable
-
 
 _context = Context()
 _entity = _context.create_entity()

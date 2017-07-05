@@ -1,9 +1,5 @@
-# -*- coding: utf-8 -*-
-
 from collections import namedtuple
-
 from entitas import Entity, Matcher
-
 
 CompA = namedtuple('CompA', '')
 CompB = namedtuple('CompB', '')
@@ -14,21 +10,29 @@ CompF = namedtuple('CompF', '')
 
 
 def test_matches():
-    eA = Entity()
-    eB = Entity()
-    eC = Entity()
-
-    eA.activate(0)
-    eB.activate(1)
-    eC.activate(2)
-    eA.add(CompA); eA.add(CompB); eA.add(CompC); eA.add(CompE)
-    eB.add(CompA); eB.add(CompB); eB.add(CompC); eB.add(CompE); eB.add(CompF)
-    eC.add(CompB); eC.add(CompC); eC.add(CompD)
+    ea = Entity()
+    eb = Entity()
+    ec = Entity()
+    ea.activate(0)
+    eb.activate(1)
+    ec.activate(2)
+    ea.add(CompA)
+    ea.add(CompB)
+    ea.add(CompC)
+    ea.add(CompE)
+    eb.add(CompA)
+    eb.add(CompB)
+    eb.add(CompC)
+    eb.add(CompE)
+    eb.add(CompF)
+    ec.add(CompB)
+    ec.add(CompC)
+    ec.add(CompD)
 
     matcher = Matcher(all_of=[CompA, CompB, CompC],
                       any_of=[CompD, CompE],
                       none_of=[CompF])
 
-    assert matcher.matches(eA)
-    assert not matcher.matches(eB)
-    assert not matcher.matches(eC)
+    assert matcher.matches(ea)
+    assert not matcher.matches(eb)
+    assert not matcher.matches(ec)

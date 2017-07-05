@@ -8,9 +8,8 @@ dist/
 # Py.test
 .cache/
 
-# Virtual environments
-env/
-venv/
+# tox
+.tox/
 
 # OS
 Thumbs.db

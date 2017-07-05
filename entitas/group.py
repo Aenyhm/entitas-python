@@ -1,11 +1,13 @@
-# -*- coding: utf-8 -*-
+from enum import Enum, auto
 
 from .utils import Event
 from .exceptions import GroupSingleEntity
 
 
-class GroupEvent(object):
-    added, removed, added_or_removed = range(3)
+class GroupEvent(Enum):
+    ADDED = auto()
+    REMOVED = auto()
+    ADDED_OR_REMOVED = auto()
 
 
 class Group(object):
@@ -35,7 +37,7 @@ class Group(object):
 
     @property
     def entities(self):
-        return list(self._entities)
+        return self._entities
 
     @property
     def single_entity(self):

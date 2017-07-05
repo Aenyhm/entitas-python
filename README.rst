@@ -81,6 +81,24 @@ Entity Collector
   # stop observing
   collector.deactivate()
 
+Entity Index
+~~~~~~~~~~~~
+
+.. code-block:: python
+
+  Person = namedtuple('Person', 'name age')
+  group = context.get_group(Matcher(Person))
+
+  # get a set of 42-year-old Person
+  index = EntityIndex(Person, group, 'age')
+  context.add_entity_index(index)
+  entities = context.get_entity_index(Person).get_entities(42)
+
+  # get the Person named "John"
+  primary_index = PrimaryEntityIndex(Person, group, 'name')
+  context.add_entity_index(primary_index)
+  entity = context.get_entity_index(Person).get_entity('John')
+
 Processors
 ~~~~~~~~~~
 
@@ -102,7 +120,7 @@ Processors
           self._context = context
 
       def get_trigger(self):
-          return {Matcher(Position): GroupEvent.added}
+          return {Matcher(Position): GroupEvent.ADDED}
 
       def filter(self, entity):
           return entity.has(Position, Movable)
@@ -140,14 +158,6 @@ Setup example
   processors.tear_down()
 
   quit()
-
-
-Todo
-----
-
-- Indexing
-- Caching
-- Multiple contexts
 
 
 .. _Entitas ECS for C# and Unity : https://github.com/sschmid/Entitas-CSharp

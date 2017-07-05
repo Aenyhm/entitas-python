@@ -1,33 +1,27 @@
-# -*- coding: utf-8 -*-
-
 from abc import ABCMeta, abstractmethod
 
 from .collector import Collector
 
 
 class InitializeProcessor(metaclass=ABCMeta):
-
     @abstractmethod
     def initialize(self):
         pass
 
 
 class ExecuteProcessor(metaclass=ABCMeta):
-
     @abstractmethod
     def execute(self):
         pass
 
 
 class CleanupProcessor(metaclass=ABCMeta):
-
     @abstractmethod
     def cleanup(self):
         pass
 
 
 class TearDownProcessor(metaclass=ABCMeta):
-
     @abstractmethod
     def tear_down(self):
         pass
@@ -61,14 +55,14 @@ class ReactiveProcessor(ExecuteProcessor):
         self._collector.clear_collected_entities()
 
     def execute(self):
-        if len(self._collector.collected_entities) != 0:
+        if self._collector.collected_entities:
             for entity in self._collector.collected_entities:
                 if self.filter(entity):
                     self._buffer.append(entity)
 
             self._collector.clear_collected_entities()
 
-            if len(self._buffer) != 0:
+            if self._buffer:
                 self.react(self._buffer)
                 self._buffer.clear()
 

@@ -1,10 +1,6 @@
-# -*- coding: utf-8 -*-
-
 import pytest
-
 from entitas import Entity, AlreadyAddedComponent, MissingComponent
 from .test_components import Movable, Position
-
 
 _entity = Entity()
 
