@@ -1,13 +1,13 @@
-from enum import Enum, auto
+from enum import Enum
 
 from .utils import Event
 from .exceptions import GroupSingleEntity
 
 
 class GroupEvent(Enum):
-    ADDED = auto()
-    REMOVED = auto()
-    ADDED_OR_REMOVED = auto()
+    ADDED = 1
+    REMOVED = 2
+    ADDED_OR_REMOVED = 3
 
 
 class Group(object):
