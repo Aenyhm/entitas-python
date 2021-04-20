@@ -3,6 +3,7 @@
         "hash": {
             "sha256": "b7a6e424dad37042297394b268d4f8c30829110a8d869016bb84e81c13d5d2a0"
         },
+        "pipfile-spec": 6,
         "requires": {},
         "sources": [
             {
@@ -13,26 +14,69 @@
     },
     "default": {},
     "develop": {
-        "colorama": {
-            "version": "==0.3.9"
+        "appdirs": {
+            "hashes": [
+                "sha256:7d5d0167b2b1ba821647616af46a749d1c653740dd0d2415100fe26e27afdf41",
+                "sha256:a841dacd6b99318a741b166adb07e19ee71a274450e68237b4650ca1055ab128"
+            ],
+            "version": "==1.4.4"
+        },
+        "distlib": {
+            "hashes": [
+                "sha256:8c09de2c67b3e7deef7184574fc060ab8a793e7adbb183d942c389c8b13c52fb",
+                "sha256:edf6116872c863e1aa9d5bb7cb5e05a022c519a4594dc703843343a9ddd9bff1"
+            ],
+            "version": "==0.3.1"
+        },
+        "filelock": {
+            "hashes": [
+                "sha256:18d82244ee114f543149c66a6e0c14e9c4f8a1044b5cdaadd0f82159d6a6ff59",
+                "sha256:929b7d63ec5b7d6b71b0fa5ac14e030b3f70b75747cef1b10da9b879fef15836"
+            ],
+            "version": "==3.0.12"
         },
         "pluggy": {
-            "version": "==0.4.0"
+            "hashes": [
+                "sha256:15b2acde666561e1298d71b523007ed7364de07029219b604cf808bfa1c765b0",
+                "sha256:966c145cd83c96502c3c3868f50408687b38434af77734af1e9ca461a4081d2d"
+            ],
+            "version": "==0.13.1"
         },
         "py": {
-            "version": "==1.4.34"
+            "hashes": [
+                "sha256:21b81bda15b66ef5e1a777a21c4dcd9c20ad3efd0b3f817e7a809035269e1bd3",
+                "sha256:3b80836aa6d1feeaa108e046da6423ab8f6ceda6468545ae8d02d9d58d18818a"
+            ],
+            "version": "==1.10.0"
         },
         "pytest": {
+            "hashes": [
+                "sha256:095e1832f7e424563c95daf4d8d3c865052b80e139cdd2f9610a986ee8526206",
+                "sha256:2a4f483468954621fcc8f74784f3b42531e5b5008d49fc609b37bc4dbc6dead1"
+            ],
             "version": "==3.1.3"
         },
-        "setuptools": {
-            "version": "==36.0.1"
+        "six": {
+            "hashes": [
+                "sha256:30639c035cdb23534cd4aa2dd52c3bf48f06e5f4a941509c8bafd8ce11080259",
+                "sha256:8b74bedcbbbaca38ff6d7491d76f2b06b3592611af620f8426e82dddb04a5ced"
+            ],
+            "version": "==1.15.0"
         },
         "tox": {
+            "hashes": [
+                "sha256:0f37ea637ead4a5bbae91531b0bf8fd327c7152e20255e5960ee180598228d21",
+                "sha256:9c3bdc06fe411d24015e8bbbab9d03dc5243a970154496aac13f9283682435f9"
+            ],
             "version": "==2.7.0"
         },
         "virtualenv": {
-            "version": "==15.1.0"
+            "hashes": [
+                "sha256:09c61377ef072f43568207dc8e46ddeac6bcdcaf288d49011bda0e7f4d38c4a2",
+                "sha256:a935126db63128861987a7d5d30e23e8ec045a73840eeccb467c148514e29535"
+            ],
+            "markers": "python_version != '3.2'",
+            "version": "==20.4.4"
         }
     }
 }
